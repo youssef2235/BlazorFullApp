@@ -5,7 +5,7 @@ This project is a CRUD (Create, Read, Update, Delete) application built using th
 
 ## Technologies Used
 - **Frontend**: Blazor Web App (.NET 8)
-- **Backend**: .NET 8 Web API
+- **Backend**: .NET 9 Web API
 - **Database**: SQL Server
 - **ORM**: Entity Framework Core (Code-First Approach)
 - **Authentication & Authorization**: JWT Token
