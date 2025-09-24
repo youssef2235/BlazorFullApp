@@ -8,29 +8,87 @@
 
 @if (IsShowContent)
 {
-    <div class="page">
-        <div class="sidebar">
-            <NavMenu />
-        </div>
-
-        <main>
-            <div class="top-row px-4">
-                <CultureSelector />
-                <AuthorizeView>
-                    <Authorized>
-                        <div>Hello, @context.User.Identity?.Name!</div>
-                    </Authorized>
-                    <NotAuthorized>
-                        <div>You're not authorized.</div>
-                    </NotAuthorized>
-                </AuthorizeView>
-                <a href="/logout">LogOut</a>
+    <div class="glassmorphism-layout">
+        <!-- Header -->
+        <header class="glass-header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo">
+                        <span class="logo-icon">🧵</span>
+                        <span class="logo-text">رافال</span>
+                        <span class="logo-subtitle">Rafal Textiles</span>
+                    </div>
+                </div>
+                <nav class="header-nav">
+                    <NavLink class="nav-item" href="" Match="NavLinkMatch.All">
+                        <span class="nav-icon">🏠</span>
+                        الرئيسية
+                    </NavLink>
+                    <NavLink class="nav-item" href="product">
+                        <span class="nav-icon">📦</span>
+                        المنتجات
+                    </NavLink>
+                    <NavLink class="nav-item" href="counter">
+                        <span class="nav-icon">📊</span>
+                        الإحصائيات
+                    </NavLink>
+                </nav>
+                <div class="header-actions">
+                    <CultureSelector />
+                    <AuthorizeView>
+                        <Authorized>
+                            <div class="user-info">
+                                <span class="user-icon">👤</span>
+                                <span>مرحباً، @context.User.Identity?.Name!</span>
+                            </div>
+                        </Authorized>
+                        <NotAuthorized>
+                            <div class="unauthorized">غير مصرح</div>
+                        </NotAuthorized>
+                    </AuthorizeView>
+                    <a href="/logout" class="logout-btn">
+                        <span class="logout-icon">🚪</span>
+                        تسجيل الخروج
+                    </a>
+                </div>
             </div>
+        </header>
 
-            <article class="content px-4">
+        <!-- Main Content -->
+        <main class="glass-main">
+            <div class="content-wrapper">
                 @Body
-            </article>
+            </div>
         </main>
+
+        <!-- Footer -->
+        <footer class="glass-footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>شركة رافال للنسيج</h4>
+                    <p>نحن متخصصون في إنتاج وتوريد أجود أنواع الأقمشة والمنسوجات</p>
+                </div>
+                <div class="footer-section">
+                    <h4>خدماتنا</h4>
+                    <ul>
+                        <li>أقمشة عالية الجودة</li>
+                        <li>تصميمات مخصصة</li>
+                        <li>توصيل سريع</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>تواصل معنا</h4>
+                    <div class="contact-info">
+                        <p>📞 +966 50 123 4567</p>
+                        <p>📧 info@rafal-textiles.com</p>
+                        <p>📍 الرياض، المملكة العربية السعودية</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 شركة رافال للنسيج. جميع الحقوق محفوظة.</p>
+            </div>
+        </footer>
     </div>
 
     <BlazoredToasts Position="ToastPosition.TopRight"

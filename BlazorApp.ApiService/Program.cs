@@ -8,6 +8,7 @@ using Microsoft.OpenApi.Models;
 using NLog;
 using NLog.Web;
 using System.Text;
+using BlazorApp.Model.Entities;
 
 
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings()
@@ -87,6 +88,45 @@ try
     builder.Services.AddProblemDetails();
 
     var app = builder.Build();
+
+    // Seed default roles and admin user
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+        // Ensure database and migrations are applied
+        dbContext.Database.Migrate();
+
+        // Seed roles
+        if (!dbContext.Roles.Any())
+        {
+            dbContext.Roles.AddRange(
+                new RoleModel { RoleName = "Admin" },
+                new RoleModel { RoleName = "User" }
+            );
+            dbContext.SaveChanges();
+        }
+
+        // Seed default admin user
+        if (!dbContext.Users.Any())
+        {
+            var adminUser = new UserModel
+            {
+                Username = "admin",
+                // NOTE: current implementation uses plain text comparison
+                Password = "Admin@123"
+            };
+            dbContext.Users.Add(adminUser);
+            dbContext.SaveChanges();
+
+            var adminRoleId = dbContext.Roles.First(r => r.RoleName == "Admin").ID;
+            dbContext.UserRoles.Add(new UserRoleModel
+            {
+                UserID = adminUser.ID,
+                RoleID = adminRoleId
+            });
+            dbContext.SaveChanges();
+        }
+    }
 
 
     // Configure the HTTP request pipeline.

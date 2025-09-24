@@ -14,6 +14,7 @@ namespace BlazorApp.BL.Services
         Task<bool> ProductModelExists(int id);
         Task DeleteProduct(int id);
     }
+    
     public class ProductService(IProductRepository productRepository, IDistributedCache cacheService) : IProductService
     {
         public async Task<ProductModel> CreateProduct(ProductModel productModel)
